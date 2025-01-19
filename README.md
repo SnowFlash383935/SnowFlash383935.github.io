@@ -1,1 +1,1 @@
-[Go faster](https://SnowFlash383935.github.io)
+[Go faster](https://snowflash383935.github.io)
