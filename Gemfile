@@ -12,5 +12,3 @@ gem "mini_magick"
 gem "sass"
 gem "sprockets", "~> 3.7"
 gem "uglifier"
-gem 'csv'
-gem 'rexml'
