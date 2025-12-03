@@ -74,6 +74,8 @@ exclude:
   - README.md
   - vendor/
   - yarn.lock
+include:
+  - _assets/stylesheets/giscus_dark.css 
 plugins:
   - jekyll-assets
   - jekyll-paginate
