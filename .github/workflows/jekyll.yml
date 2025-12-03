@@ -28,11 +28,6 @@ jobs:
           npm install
           bundle install
 
-      - name: Copy custom assets to site
-        run: |
-          mkdir -p _site/assets/css
-          cp _assets/stylesheets/giscus_dark.css _site/assets/css/
-
       - name: Build and deploy
         run: |
           git config --global user.name "GitHub Actions"
