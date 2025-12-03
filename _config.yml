@@ -1,7 +1,7 @@
 # Mandatory settings
 
 blog_theme: dark # Or use light
-name: Chalk
+name: Блог Флешки
 paginate: 25
 url: https://snowflash383935.github.io
 
