@@ -1,0 +1,48 @@
+/*!
+ * Monochrome + Monokai Syntax Highlighting Theme for Giscus
+ */
+
+/* Основной фон и цвет текста */
+main {
+  --color-canvas-default: #0d1117; /* почти чёрный */
+  --color-canvas-inset: #010409;
+  --color-canvas-subtle: #161b22;
+  --color-border-default: #30363d;
+  --color-border-muted: #21262d;
+  --color-fg-default: #e6edf3; /* светло-серый текст */
+  --color-fg-muted: #8b949e;
+  --color-fg-subtle: #6e7681;
+
+  /* Кнопки */
+  --color-btn-text: #c9d1d9;
+  --color-btn-bg: #21262d;
+  --color-btn-border: rgba(240, 246, 252, 0.1);
+  --color-btn-hover-bg: #30363d;
+  --color-btn-active-bg: #161b22;
+
+  /* Акценты – оставляем цветные элементы для юзабилити */
+  --color-accent-fg: #58a6ff; /* немного синевы для ссылок */
+  --color-accent-emphasis: #1f6feb;
+  --color-success-fg: #3fb950;
+  --color-danger-fg: #f85149;
+  --color-attention-fg: #d29922;
+
+  /* Подсветка кода */
+  --color-prettylights-syntax-comment: #75715e;
+  --color-prettylights-syntax-constant: #ae81ff;
+  --color-prettylights-syntax-entity: #a6e22e;
+  --color-prettylights-syntax-storage-modifier-import: #f8f8f2;
+  --color-prettylights-syntax-entity-tag: #f92672;
+  --color-prettylights-syntax-keyword: #66d9ef;
+  --color-prettylights-syntax-string: #e6db74;
+  --color-prettylights-syntax-variable: #f8f8f2;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #f92672;
+  --color-prettylights-syntax-invalid-illegal-text: #f8f8f2;
+  --color-prettylights-syntax-invalid-illegal-bg: #f9267222;
+  --color-prettylights-syntax-string-regexp: #a6e22e;
+  --color-prettylights-syntax-markup-heading: #66d9ef;
+  --color-prettylights-syntax-markup-bold: #f8f8f2;
+  --color-prettylights-syntax-markup-italic: #f8f8f2;
+  --color-prettylights-syntax-markup-deleted-text: #f92672;
+  --color-prettylights-syntax-markup-inserted-text: #a6e22e;
+}
