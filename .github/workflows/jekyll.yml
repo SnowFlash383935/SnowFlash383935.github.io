@@ -1,47 +1,39 @@
+# .github/workflows/deploy.yml
+
 name: Deploy Jekyll site to GitHub Pages
 
 on:
   push:
     branches:
-      - main  # или master
+      - main  # или master — та ветка, откуда берутся исходники
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '18'  # или любая LTS
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.7'
+          ruby-version: '2.7'  # как ты уже выбрал
           bundler-cache: true
-
-      - name: Run setup (if exists)
-        run: |
-          if grep -q '"setup"' package.json; then
-            npm run setup
-          else
-            echo "No setup script found"
-          fi
 
       - name: Install dependencies
         run: |
           npm install
           bundle install
 
-      - name: Build site
+      - name: Build and deploy
         run: |
-          JEKYLL_ENV=production bundle exec jekyll build
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          npm run publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
