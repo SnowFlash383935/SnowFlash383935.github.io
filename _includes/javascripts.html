@@ -23,7 +23,7 @@
 {% if site.theme_toggle == true %}
   {% asset themetoggle.js %}
 {% endif %}
-
+<script>
 document.querySelectorAll('pre code').forEach(block => {
   const button = document.createElement('button');
   button.innerText = 'Copy';
@@ -35,3 +35,4 @@ document.querySelectorAll('pre code').forEach(block => {
     setTimeout(() => button.innerText = 'Copy', 2000);
   });
 });
+</script>
