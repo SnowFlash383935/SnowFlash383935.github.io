@@ -23,16 +23,69 @@
 {% if site.theme_toggle == true %}
   {% asset themetoggle.js %}
 {% endif %}
-<script>
-document.querySelectorAll('pre code').forEach(block => {
-  const button = document.createElement('button');
-  button.innerText = 'Copy';
-  block.parentNode.appendChild(button);
+
+<style>
+.copy-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba($body-background, 0.8);
+  border: 1px solid $base-border-color;
+  border-radius: 4px;
+  padding: 4px;
+  cursor: pointer;
+  color: $base-font-color;
+  transition: all 0.2s ease;
+  z-index: 10;
   
-  button.addEventListener('click', () => {
-    navigator.clipboard.writeText(block.innerText);
-    button.innerText = 'Copied!';
-    setTimeout(() => button.innerText = 'Copy', 2000);
+  &:hover {
+    background: $base-border-color;
+    border-color: $base-accent-color;
+  }
+  
+  &.copied {
+    color: $base-accent-color;
+    border-color: $base-accent-color;
+  }
+  
+  svg {
+    display: block;
+  }
+}
+
+// Для родительского контейнера кода
+.highlight {
+  position: relative;
+}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Находим все блоки кода
+  document.querySelectorAll('pre.highlight').forEach(pre => {
+    // Создаем кнопку
+    const button = document.createElement('button');
+    button.className = 'copy-button';
+    button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>';
+    button.title = 'Copy to clipboard';
+    
+    // Вставляем кнопку перед pre (чтобы не было внутри кода)
+    pre.parentNode.insertBefore(button, pre);
+    
+    // Обработчик клика
+    button.addEventListener('click', () => {
+      const code = pre.querySelector('code');
+      navigator.clipboard.writeText(code.innerText).then(() => {
+        // Меняем иконку на галочку
+        button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+        button.classList.add('copied');
+        
+        // Через 2 секунды возвращаем исходную иконку
+        setTimeout(() => {
+          button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>';
+          button.classList.remove('copied');
+        }, 2000);
+      });
+    });
   });
 });
 </script>
