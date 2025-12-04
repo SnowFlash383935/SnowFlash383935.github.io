@@ -23,3 +23,15 @@
 {% if site.theme_toggle == true %}
   {% asset themetoggle.js %}
 {% endif %}
+
+document.querySelectorAll('pre code').forEach(block => {
+  const button = document.createElement('button');
+  button.innerText = 'Copy';
+  block.parentNode.appendChild(button);
+  
+  button.addEventListener('click', () => {
+    navigator.clipboard.writeText(block.innerText);
+    button.innerText = 'Copied!';
+    setTimeout(() => button.innerText = 'Copy', 2000);
+  });
+});
