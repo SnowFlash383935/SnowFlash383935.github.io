@@ -20,7 +20,7 @@
         <guid isPermaLink="true">{{ post.url | absolute_url }}</guid>
         <content:encoded>
           <![CDATA[
-          {{post.content}}
+          {{ post.content | remove: 'data-rjs="' | remove: 'data-lang="' | remove: 'data-zooming-width="' | remove: 'data-zooming-height="' | absolute_url}}
           ]]>
         </content:encoded>
       </item>
