@@ -16,6 +16,7 @@
         <link>{{ post.url | absolute_url }}</link>
         {% for tag in post.tags %}
             <category>{{ tag }}</category>
+        {% endfor %}
         <guid isPermaLink="true">{{ post.url | absolute_url }}</guid>
       </item>
     {% endfor %}
