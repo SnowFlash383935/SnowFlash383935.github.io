@@ -18,6 +18,7 @@
             <category>{{ tag }}</category>
         {% endfor %}
         <guid isPermaLink="true">{{ post.url | absolute_url }}</guid>
+        <content>{{post.content}}</content>
       </item>
     {% endfor %}
   </channel>
