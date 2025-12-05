@@ -68,6 +68,11 @@ sitemap: false
       });
     })
     .catch(error => {
-      console.error('Ошибка при загрузке постов:', error);
+      const listItem = document.createElement('li');
+      listItem.className = 'article-list-item';
+      
+      // Создаем ошибку
+      const error = document.createElement('p');
+      error.textContent = error;
     });
 </script>
