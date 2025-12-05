@@ -192,3 +192,7 @@
     {% endfor %}
   </ul>
 {% endif %}
+
+{% if site.search_enabled %}
+  <input type="text" id="search_field" placeholder="Поиск по постам...">
+{% endif %}
