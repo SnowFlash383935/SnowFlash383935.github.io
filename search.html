@@ -5,3 +5,30 @@ description: "Поиск по всем постам"
 permalink: /search
 sitemap: false
 ---
+<ul id="results"></ul>
+<script>
+  var sjs = SimpleJekyllSearch({
+    searchInput: null,
+    resultsContainer: document.getElementById('results'),
+    json: '/search.json',
+    searchResultTemplate: `
+    <li class="article-list-item {% if site.scrollappear_enabled %}scrollappear{% endif %}">
+      <a href="{{ page.url | relative_url }}" title="{{ page.title }}">
+        <h5>
+          {{ page.title }}
+          {% include svg-icon.html icon="arrow-right" %}
+        </h5>
+      </a>
+      <p>
+        {% if page.description %}
+          {{ post.description }}  
+        {% else %}
+          {{ page.excerpt }}
+        {% endif %}
+      </p>
+      {% include article/info-footer.html post=page %}
+    </li>
+    `
+  })
+  
+</script>
