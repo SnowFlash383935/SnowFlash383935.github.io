@@ -29,6 +29,11 @@ sitemap: false
       {% include article/info-footer.html post=page %}
     </li>
     `
-  })
-  
+  });
+  // Получаем текущий URL
+  const urlParams = new URLSearchParams(window.location.search);
+
+  // Получаем конкретные значения
+  const query = urlParams.get('query'); // "Ivan"  
+  sjs.search(query);
 </script>
