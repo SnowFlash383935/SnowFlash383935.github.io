@@ -195,7 +195,7 @@
 
 {% if site.search_enabled %}
   <form action="/search" method="get">
-    <input type="text" id="search_field" placeholder="Поиск по постам...">
+    <input type="text" id="search_field" name="query" placeholder="Поиск по постам...">
     <button type='submit'>Искать</button>
   </form>
 {% endif %}
