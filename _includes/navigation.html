@@ -171,7 +171,7 @@
     {% endif %}
     {% if site.theme_toggle == true %}
       <li>
-        <a onclick="toggle()" title="Toggle Theme">
+        <a onclick="toggle()" title="Переключить тему">
           {% include svg-icon.html icon="theme" %}
         </a>
       </li>
@@ -185,7 +185,7 @@
     {% for tag in tags %}
       {% if forloop.index > 10 %}
         <li>...</li>
-        <li><a href="/tags">Show all</a></li>
+        <li><a href="/tags">Показать все</a></li>
         {% break %}
       {% endif %}
         <li><a href="{{ 'tag/' | relative_url }}{{ tag[0] }}">{{ tag[0] | capitalize }}</a></li>
