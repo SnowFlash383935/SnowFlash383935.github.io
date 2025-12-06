@@ -5,57 +5,76 @@ description: "Поиск по всем постам"
 permalink: /search
 sitemap: false
 ---
-<ul id="results"></ul>
+
+<div id="search-results">
+  <ul class="article-list">
+    {% for post in site.posts %}
+      <li class="article-list-item {% if site.scrollappear_enabled %}scrollappear{% endif %} hidden-post" data-title="{{ post.title | downcase }}" data-description="{{ post.description | downcase }}" data-excerpt="{{ post.excerpt | strip_html | downcase }}">
+        <a href="{{ post.url | relative_url }}" title="{{ post.title }}">
+          <h5>
+            {{ post.title }}
+            {% include svg-icon.html icon="arrow-right" %}
+          </h5>
+        </a>
+        <p>
+          {% if post.description %}
+            {{ post.description }}  
+          {% else %}
+            {{ post.excerpt }}
+          {% endif %}
+        </p>
+        {% include article/info-footer.html post=post %}
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
 <script>
-  // Получаем текущий URL
+  // Получаем текущий URL и параметр поиска
   const urlParams = new URLSearchParams(window.location.search);
-  // Получаем конкретные значения
   const query = urlParams.get('query');
   
+  // Если есть поисковый запрос
   if (query) {
-    fetch("/search.json")
-      .then(response => response.json())
-      .then(posts => {
-        const resultsContainer = document.getElementById('results');
-        let htmlContent = '';
-        
-        const filteredPosts = posts.filter(post => 
-          post.title.toLowerCase().includes(query.toLowerCase()) ||
-          (post.description && post.description.toLowerCase().includes(query.toLowerCase())) ||
-          (post.excerpt && post.excerpt.toLowerCase().includes(query.toLowerCase()))
-        );
-        
-        if (filteredPosts.length === 0) {
-          resultsContainer.innerHTML = '<p>Ничего не найдено</p>';
-          return;
-        }
-        
-        filteredPosts.forEach(post => {
-          htmlContent += '<li class="article-list-item">' +
-            '<a href="' + post.url + '" title="' + post.title + '">' +
-              '<h5>' +
-                post.title +
-                '<svg class="icon-arrow-right" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-                  '<path d="M14 8L8 2V6H2V10H8V14L14 8Z" fill="currentColor"/>' +
-                '</svg>' +
-              '</h5>' +
-            '</a>' +
-            '<p>' +
-              (post.description || post.excerpt || '') +
-            '</p>' +
-            '<div class="article-info-footer">' +
-              (post.date ? '<span class="article-date">' + new Date(post.date).toLocaleDateString('ru-RU') + '</span>' : '') +
-            '</div>' +
-          '</li>';
-        });
-        
-        resultsContainer.innerHTML = htmlContent;
-      })
-      .catch(error => {
-        console.error('Ошибка при загрузке постов:', error);
-        document.getElementById('results').innerHTML = '<p>Ошибка загрузки результатов</p>';
-      });
+    // Получаем все посты
+    const posts = document.querySelectorAll('.article-list-item');
+    let foundCount = 0;
+    
+    // Проходим по всем постам
+    posts.forEach(post => {
+      const title = post.getAttribute('data-title') || '';
+      const description = post.getAttribute('data-description') || '';
+      const excerpt = post.getAttribute('data-excerpt') || '';
+      
+      // Проверяем совпадение с запросом
+      if (title.includes(query.toLowerCase()) || 
+          description.includes(query.toLowerCase()) || 
+          excerpt.includes(query.toLowerCase())) {
+        // Показываем совпадающие посты
+        post.classList.remove('hidden-post');
+        foundCount++;
+      } else {
+        // Скрываем несовпадающие посты
+        post.classList.add('hidden-post');
+      }
+    });
+    
+    // Если ничего не найдено
+    if (foundCount === 0) {
+      document.getElementById('search-results').innerHTML = '<p>Ничего не найдено по запросу: "' + query + '"</p>';
+    }
   } else {
-    document.getElementById('results').innerHTML = '<p>Введите поисковый запрос</p>';
+    // Если нет запроса, скрываем все посты
+    const posts = document.querySelectorAll('.article-list-item');
+    posts.forEach(post => {
+      post.classList.add('hidden-post');
+    });
+    document.getElementById('search-results').innerHTML = '<p>Введите поисковый запрос в форму выше</p>';
   }
 </script>
+
+<style>
+  .hidden-post {
+    display: none !important;
+  }
+</style>
