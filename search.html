@@ -17,6 +17,7 @@ sitemap: false
       .then(response => response.json())
       .then(posts => {
         const resultsContainer = document.getElementById('results');
+        let htmlContent = '';
         
         const filteredPosts = posts.filter(post => 
           post.title.toLowerCase().includes(query.toLowerCase()) ||
@@ -30,54 +31,25 @@ sitemap: false
         }
         
         filteredPosts.forEach(post => {
-          // Создаем элемент списка
-          const listItem = document.createElement('li');
-          listItem.className = 'article-list-item';
-          
-          // Создаем ссылку
-          const link = document.createElement('a');
-          link.href = post.url;
-          link.title = post.title;
-          
-          // Создаем заголовок
-          const heading = document.createElement('h5');
-          heading.textContent = post.title;
-          
-          // Добавляем стрелочку как текст
-          const arrowIcon = document.createElement('span');
-          arrowIcon.innerHTML = ` →`;
-          heading.appendChild(arrowIcon);
-          
-          link.appendChild(heading);
-          
-          // Создаем описание
-          const description = document.createElement('p');
-          description.textContent = post.description || post.excerpt || '';
-          
-          // Создаем footer
-          const footer = document.createElement('div');
-          footer.className = 'article-info-footer';
-          
-          // Добавляем дату если есть
-          if (post.date) {
-            const dateSpan = document.createElement('span');
-            dateSpan.className = 'article-date';
-            const postDate = new Date(post.date);
-            dateSpan.textContent = postDate.toLocaleDateString('ru-RU', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            });
-            footer.appendChild(dateSpan);
-          }
-          
-          // Собираем все вместе
-          listItem.appendChild(link);
-          listItem.appendChild(description);
-          listItem.appendChild(footer);
-          
-          resultsContainer.appendChild(listItem);
+          htmlContent += '<li class="article-list-item">' +
+            '<a href="' + post.url + '" title="' + post.title + '">' +
+              '<h5>' +
+                post.title +
+                '<svg class="icon-arrow-right" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+                  '<path d="M14 8L8 2V6H2V10H8V14L14 8Z" fill="currentColor"/>' +
+                '</svg>' +
+              '</h5>' +
+            '</a>' +
+            '<p>' +
+              (post.description || post.excerpt || '') +
+            '</p>' +
+            '<div class="article-info-footer">' +
+              (post.date ? '<span class="article-date">' + new Date(post.date).toLocaleDateString('ru-RU') + '</span>' : '') +
+            '</div>' +
+          '</li>';
         });
+        
+        resultsContainer.innerHTML = htmlContent;
       })
       .catch(error => {
         console.error('Ошибка при загрузке постов:', error);
