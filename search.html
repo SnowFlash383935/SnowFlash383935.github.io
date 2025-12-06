@@ -37,9 +37,9 @@ sitemap: false
         const heading = document.createElement('h5');
         heading.textContent = post.title;
         
-        // Добавляем стрелочку (предполагая, что это SVG иконка)
+        // Добавляем стрелочку как текст или символ
         const arrowIcon = document.createElement('span');
-        arrowIcon.innerHTML = '{% include svg-icon.html icon="arrow-right" %}';
+        arrowIcon.innerHTML = ' →'; // Простая стрелка
         heading.appendChild(arrowIcon);
         
         link.appendChild(heading);
@@ -55,7 +55,12 @@ sitemap: false
         if (post.date) {
           const dateSpan = document.createElement('span');
           dateSpan.className = 'article-date';
-          dateSpan.textContent = new Date(post.date).toLocaleDateString();
+          const postDate = new Date(post.date);
+          dateSpan.textContent = postDate.toLocaleDateString('ru-RU', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
           footer.appendChild(dateSpan);
         }
         
@@ -68,11 +73,6 @@ sitemap: false
       });
     })
     .catch(error => {
-      const listItem = document.createElement('li');
-      listItem.className = 'article-list-item';
-      
-      // Создаем ошибку
-      const error = document.createElement('p');
-      error.textContent = error;
+      console.error('Ошибка при загрузке постов:', error);
     });
 </script>
