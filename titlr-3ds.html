@@ -29,7 +29,8 @@ layout: default
 <button id="go">Скачать</button>
 
 <div id="log"></div>
-
+<script src="https://cdn.jsdelivr.net/npm/web-streams-polyfill@2.0.2/dist/ponyfill.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/streamsaver@2.0.3/StreamSaver.min.js"></script>
 <script type="module">
 /* ---------- tiny helpers ---------- */
 const $ = q => document.querySelector(q);
@@ -80,17 +81,7 @@ async function fetchBlob(url, desc){
   if(!r.ok) throw new Error(`${r.status} ${r.statusText}`);
   return r.arrayBuffer();
 }
-
-/* ---------- save file ---------- */
-import {WritableStream} from 'https://cdn.jsdelivr.net/npm/web-streams-polyfill@3/dist/ponyfill.es2018.mjs';
-/* ---------- полифиллы ---------- */
-import 'https://cdn.jsdelivr.net/npm/web-streams-polyfill@3/dist/ponyfill.es2018.mjs';
-
-/* ---------- подключаем StreamSaver (без дефолта) ---------- */
-import 'https://cdn.jsdelivr.net/npm/streamsaver@2.0.6/StreamSaver.js';
-
-/* ---------- теперь streamSaver глобален ---------- */
-const {createWriteStream} = self.streamSaver;   // то, что нам нужно
+import streamSaver from 'streamsaver'
 function saveStream(filename, size){
   const fileStream = streamSaver.createWriteStream(filename, {size});
   return fileStream.getWriter();
