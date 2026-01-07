@@ -81,7 +81,7 @@ async function fetchBlob(url, desc){
   if(!r.ok) throw new Error(`${r.status} ${r.statusText}`);
   return r.arrayBuffer();
 }
-import streamSaver from 'streamsaver'
+const streamSaver = window.streamSaver
 function saveStream(filename, size){
   const fileStream = streamSaver.createWriteStream(filename, {size});
   return fileStream.getWriter();
