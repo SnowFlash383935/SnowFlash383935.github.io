@@ -1,14 +1,27 @@
----
-layout: none
----
 [
-  {% for post in site.posts %}
+  
     {
-      "title"    : "{{ post.title | escape }}",
-      "category" : "{{ post.category }}",
-      "tags"     : "{{ post.tags | join: ', ' }}",
-      "url"      : "{{ site.baseurl }}{{ post.url }}",
-      "date"     : "{{ post.date }}"
-    } {% unless forloop.last %},{% endunless %}
-  {% endfor %}
+      "title"    : "Introducing chalk",
+      "category" : "",
+      "tags"     : "web, jekyll",
+      "url"      : "/posts/introducing-chalk",
+      "date"     : "2017-12-23 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "How to configure Chalk",
+      "category" : "",
+      "tags"     : "web, jekyll",
+      "url"      : "/posts/configuring-chalk",
+      "date"     : "2017-12-22 00:00:00 +0000"
+    } ,
+  
+    {
+      "title"    : "Chalk sample post with all elements",
+      "category" : "",
+      "tags"     : "дизайн, jekyll",
+      "url"      : "/posts/chalk-sample-post-with-all-elements",
+      "date"     : "2017-12-21 00:00:00 +0000"
+    } 
+  
 ]
