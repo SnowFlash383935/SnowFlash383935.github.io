@@ -1,0 +1,3 @@
+[submodule "DS emu"]
+    path = modules/ds
+    url = https://github.com/alainbacu27/Nintendo-DS-Emulator-Online
